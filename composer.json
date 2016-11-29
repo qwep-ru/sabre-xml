@@ -1,11 +1,11 @@
 {
-    "name": "sabre/xml",
+    "name": "scroller123/sabre-xml",
     "description" : "sabre/xml is an XML library that you may not hate.",
     "keywords" : [ "XML", "XMLReader", "XMLWriter", "DOM" ],
     "homepage" : "https://sabre.io/xml/",
-    "license" : "BSD-3-Clause",
+    "license" : "MIT",
     "require" : {
-        "php" : ">=7.0",
+        "php" : ">=5.5.5",
         "ext-xmlwriter" : "*",
         "ext-xmlreader" : "*",
         "ext-dom" : "*",

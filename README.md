@@ -1,4 +1,4 @@
-sabre/xml
+scroller123/sabre-xml
 =========
 
 [![Build Status](https://secure.travis-ci.org/fruux/sabre-xml.svg?branch=master)](http://travis-ci.org/fruux/sabre-xml)
