@@ -180,6 +180,18 @@ function enum(Reader $reader, $namespace = null) {
  */
 function valueObject(Reader $reader, $className, $namespace) {
 
+//     $reader->read();
+//     do {
+//         if ($reader->nodeType === Reader::ELEMENT && $reader->namespaceURI == $namespace) {
+//             $x = $reader->localName;
+//             $element = $reader->parseCurrentElement();
+//         } else {
+//             $reader->read();
+//         }
+//     } while ($reader->nodeType !== Reader::END_ELEMENT);
+    
+    
+    
     $valueObject = new $className();
     if ($reader->isEmptyElement) {
         $reader->next();
@@ -187,20 +199,39 @@ function valueObject(Reader $reader, $className, $namespace) {
     }
 
     $defaultProperties = get_class_vars($className);
-
+    
     $reader->read();
     do {
 
+        $nodetype = $reader->nodeType;
+        $x = $reader->localName;
+        $nsuri = $reader->namespaceURI;
+        
+        if (false !== stripos($nodetype, 'CaptchaField')) {
+            $f = 1;
+        }
+        
         if ($reader->nodeType === Reader::ELEMENT && $reader->namespaceURI == $namespace) {
 
-            if (property_exists($valueObject, $reader->localName)) {
+            $ucfi = lcfirst($reader->localName);
+            $exiprop = property_exists($valueObject, lcfirst($reader->localName));
+            $pclass = get_parent_class($valueObject);
+            
+            if (property_exists($valueObject, lcfirst($reader->localName)) || $pclass && property_exists($pclass, lcfirst($reader->localName)) || $pclass && property_exists($pclass, $reader->localName)) {
                 if (is_array($defaultProperties[$reader->localName])) {
-                    $valueObject->{$reader->localName}[] = $reader->parseCurrentElement()['value'];
+                    $method = 'add' . ucfirst($reader->localName);
+//                     $valueObject->{$method} = $reader->parseCurrentElement()['value'];
+                    $element = $reader->parseCurrentElement();
+                    call_user_method($method, $valueObject, $element['value']);
                 } else {
-                    $valueObject->{$reader->localName} = $reader->parseCurrentElement()['value'];
+                    $method = 'set' . ucfirst($reader->localName);
+//                     $valueObject->{$method} = $reader->parseCurrentElement()['value'];
+                    $element = $reader->parseCurrentElement();
+                    call_user_method($method, $valueObject, $element['value']);
                 }
             } else {
                 // Ignore property
+                throw new \Exception($reader->localName . ' property of ' . get_class($valueObject) . ' not found');
                 $reader->next();
             }
         } else {

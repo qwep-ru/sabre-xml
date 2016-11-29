@@ -298,7 +298,9 @@ class Reader extends XMLReader {
      * @return callable
      */
     function getDeserializerForElementName($name) {
-
+        if (false !== strpos($name, 'CaptchaField')) {
+            $f = 1;
+        }
 
         if (!array_key_exists($name, $this->elementMap)) {
             if (substr($name, 0, 2) == '{}' && array_key_exists(substr($name, 2), $this->elementMap)) {
@@ -308,6 +310,7 @@ class Reader extends XMLReader {
             }
         }
 
+        
         $deserializer = $this->elementMap[$name];
         if (is_subclass_of($deserializer, 'Sabre\\Xml\\XmlDeserializable')) {
             return [$deserializer, 'xmlDeserialize'];
