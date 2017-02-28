@@ -222,12 +222,14 @@ function valueObject(Reader $reader, $className, $namespace) {
                     $method = 'add' . ucfirst($reader->localName);
 //                     $valueObject->{$method} = $reader->parseCurrentElement()['value'];
                     $element = $reader->parseCurrentElement();
-                    call_user_method($method, $valueObject, $element['value']);
+                    //call_user_method($method, $valueObject, $element['value']);
+			call_user_func(array($valueObject, $method), $element['value']);
                 } else {
                     $method = 'set' . ucfirst($reader->localName);
 //                     $valueObject->{$method} = $reader->parseCurrentElement()['value'];
                     $element = $reader->parseCurrentElement();
-                    call_user_method($method, $valueObject, $element['value']);
+//                    call_user_method($method, $valueObject, $element['value']);
+			call_user_func(array($valueObject, $method), $element['value']);
                 }
             } else {
                 // Ignore property
