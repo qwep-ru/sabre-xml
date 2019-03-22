@@ -1,6 +1,6 @@
 {
-    "name": "scroller123/sabre-xml",
-    "description" : "sabre/xml is an XML library that you may not hate.",
+    "name": "qwep-ru/sabre-xml",
+    "description" : "Fork of sabre/xml",
     "keywords" : [ "XML", "XMLReader", "XMLWriter", "DOM" ],
     "homepage" : "https://sabre.io/xml/",
     "license" : "MIT",
@@ -12,19 +12,6 @@
         "lib-libxml" : ">=2.6.20",
         "sabre/uri" : ">=1.0,<3.0.0"
     },
-    "authors" : [
-        {
-            "name" : "Evert Pot",
-            "email" : "me@evertpot.com",
-            "homepage" : "http://evertpot.com/",
-            "role" : "Developer"
-        },
-        {
-            "name": "Markus Staab",
-            "email": "markus.staab@redaxo.de",
-            "role" : "Developer"
-        }
-    ],
     "support" : {
         "forum" : "https://groups.google.com/group/sabredav-discuss",
         "source" : "https://github.com/fruux/sabre-xml"
